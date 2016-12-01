@@ -8,3 +8,64 @@
 //     Takes input from the command line, sets up environment,
 //     creates threads and monitor.
 // -----------------------------------------------------------
+
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+using namespace std;
+
+// -----------------------------------------------------------
+// FUNCTION printWrap :
+//    A wrapper method for printing using write()
+// PARAMETER USAGE :
+//    buf - A character array of size 100 containing
+//          the print statement
+// FUNCTION CALLED :
+//    write()
+// -----------------------------------------------------------
+void printWrap(char buf[100]) {
+    write(1, buf, strlen(buf));
+}
+
+// -----------------------------------------------------------
+// FUNCTION main :
+// PARAMETER USAGE :
+//    argv[1] - The number of cannibals
+//    argv[2] - The number of missionaries
+//    argv[3] - The number of boat loads
+// FUNCTION CALLED :
+// -----------------------------------------------------------
+int main(int argc, char* argv[])
+{
+    char buf[100];
+
+    // Default values for inputs
+    int numCans  = 8;
+    int numMiss  = 8;
+    int numLoads = 5;
+
+    if (atoi(argv[1]) != 0)
+    {
+        numCans = atoi(argv[1]);
+    }
+    if (atoi(argv[2]) != 0)
+    {
+        numMiss = atoi(argv[2]);
+    }
+    if (atoi(argv[3]) != 0)
+    {
+        numLoads = atoi(argv[3]);
+    }
+
+    sprintf(buf, "val: %d\n", numCans);
+    printWrap(buf);
+    sprintf(buf, "val: %d\n", numMiss);
+    printWrap(buf);
+    sprintf(buf, "val: %d\n", numLoads);
+    printWrap(buf);
+
+    return 0;
+}
