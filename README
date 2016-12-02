@@ -7,3 +7,77 @@
 //     Answers to the questions presented in the assignment,
 //     as well as details about the program
 // -----------------------------------------------------------
+
+The logic of the program
+    This program allows 3 passengers to get on the boat to be delivered
+    to the other side of the river. Passengers come and wait for the 
+    boat to be ready. When the boat is ready, it allows 3 passengers
+    to enter the boat, as long as they fit the criterion that 2 cannibals
+    cannot travel with 1 missionary. After loading, the boat goes for a 
+    ride and allows the passengers to get off on the other side of the
+    river.
+
+Why does your program work?
+    My program uses a monitor as the core of it's functionality. The 
+    monitor ensures mutual exclusion as code is executed. The monitor
+    procedures, CannibalArrives(), MissionaryArrives(), BoatReady() and 
+    BoatDone() control the flow of the boat and passengers as the 
+    problem runs. 
+
+Variable explanations
+    waiting - holds the number of passengers waiting to board the boat,
+              it's used in notifing the boat that passengers are
+              available
+    canWaiting - the number of cannibals waiting, used in passenger
+                 decision process
+    missWaiting - the number of missionaries waiting, used in passenger
+                  decision process
+    onBoat - number of threads currently on the boat, used to keep track
+             of when threads may get on the boat.
+    boatState - used to know if the boat is present and ready or hauling
+                threads across the river
+    Riding - Condition to prevent riding passengers from exiting
+    CannibalHere - Condition to block cannibals from boarding
+    MissionaryHere - Condition to block missionaries from boarding
+    BoatWaiting - Condition to block boat for passengers
+    BoatLoading - Condition to block boat for loading
+
+Boat has 3 persons
+    When the boat is ready for loading, it enters a decision process
+    and only allows 3 threads to board the boat. If no passengers are
+    waiting, boat waits until threads are available to board. Threads
+    can only board if the boat is in the READY state and there are less
+    than 3 threads on the boat, if not the thread is blocked. Threads
+    on the boat are blocked until the boat Signals them when the ride
+    is over so no threads can jump off. boat is blocked until 3rd thread
+    gets on the boat and signals it to go.
+
+Assembling a safe boat load
+    The boat will take passengers are random from the waiting pool, it
+    will either, take 3 missionaries, take 3 cannibals, or take 2 missionaries
+    and 1 cannibal. No other combinations are possible as the boat loads
+    threads in a group. If there is not a proper combination, the boat
+    is blocked until a combination appears and signals the boat. Boat 
+    signals the threads that are a part of the combination that they may
+    board.
+
+CannibalArrives
+    First checks if the cannibal can board the boat or not based on
+    the waiting passengers, boat state, and number of passengers on 
+    board. If it can't board, it is blocked. If it can, the thread
+    boards the boat and blocks itself for riding.
+
+MissionaryArrives
+    First checks if the missionary can board the boat or not based on
+    the waiting passengers, boat state, and number of passengers on 
+    board. If it can't board, it is blocked. If it can, the thread
+    boards the boat and blocks itself for riding.
+
+BoatReady
+    If threads are waiting, the boat will allow 3 threads to join
+    the boat as long as the threads fit the right combination. If
+    3 threads that fit the possible combinations are not available
+    the boat is blocked until 3 are available
+
+BoatDone
+    Boat done signals the riding passengers so they may get off the boat
