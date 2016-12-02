@@ -15,6 +15,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include "thread.h"
+#include "boat-monitor.h"
+
 using namespace std;
 
 // -----------------------------------------------------------
@@ -40,6 +43,7 @@ void printWrap(char buf[100]) {
 // -----------------------------------------------------------
 int main(int argc, char* argv[])
 {
+    int m = 0;
     char buf[100];
 
     // Default values for inputs
@@ -66,6 +70,29 @@ int main(int argc, char* argv[])
     printWrap(buf);
     sprintf(buf, "val: %d\n", numLoads);
     printWrap(buf);
+
+    printf("Starting crossing\n");
+
+    // start boat thread
+    BoatThread *boatT = new BoatThread();
+    boatT->Begin();
+
+    // Start all cannibal threads
+    Cannibal *cannibals[numCans];
+    for (m = 1; m <= numCans; m++)
+    {
+        cannibals[m] = new Cannibal(m);
+        cannibals[m]->Begin();
+    }
+
+    // wait for all child threads to finish
+    boatT->Join();
+    for (m = 1; m <= numCans; m++)
+    {
+        cannibals[m]->Join();
+    }
+
+
 
     return 0;
 }

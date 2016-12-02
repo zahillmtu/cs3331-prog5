@@ -6,3 +6,30 @@
 // PROGRAM PURPOSE :
 //     Contains definitions for the boat-monitor class
 // -----------------------------------------------------------
+
+#include "ThreadClass.h"
+
+class BoatMonitor : public Monitor
+{
+    public:
+        BoatMonitor(int k);
+
+        void BoatReady();
+        void BoatDone();
+        void CannibalArrives(int cNum);
+        void MissionaryArrives(int mNum);
+
+    private:
+        Condition *Riding;
+        Condition *CannibalHere;
+        Condition *BoatLoading;
+        Condition *BoatWaiting;
+        int boatLoads;
+        int waiting;
+        int onBoat;
+        int boatState;
+        char buf[100];
+        void ThreadFunc();
+        void printWrap(char*);
+        int canBoard(int type);
+};
