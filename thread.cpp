@@ -9,6 +9,8 @@
 // -----------------------------------------------------------
 
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 #include "thread.h"
 #include "boat-monitor.h"
 
@@ -35,7 +37,11 @@ void Cannibal::ThreadFunc()
 
     while(1)
     {
-        Delay();
+        r = rand() % 15;
+        for (j = 0; j < r; j++)
+        {
+            Delay();
+        }
         Boat->CannibalArrives(canNum);
     }
 }
@@ -44,11 +50,15 @@ void Missionary::ThreadFunc()
 {
     Thread::ThreadFunc();
 
-    /*while(1)
+    while(1)
     {
-        Delay();
+        r = rand() % 15;
+        for (j = 0; j < r; j++)
+        {
+            Delay();
+        }
         Boat->MissionaryArrives(missNum);
-    }*/
+    }
 }
 
 void BoatThread::ThreadFunc()

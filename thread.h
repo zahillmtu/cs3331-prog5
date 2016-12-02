@@ -17,6 +17,8 @@ class Cannibal : public Thread
 
     private:
         int canNum;
+        int r;
+        int j;
         char buf[100];
         void ThreadFunc();
         void printWrap(char*);
@@ -30,6 +32,8 @@ class Missionary : public Thread
 
     private:
         int missNum;
+        int r;
+        int j;
         char buf[100];
         void ThreadFunc();
         void printWrap(char*);

@@ -85,11 +85,23 @@ int main(int argc, char* argv[])
         cannibals[m]->Begin();
     }
 
+    // Start all missionary threads
+    Missionary *missionaries[numMiss];
+    for (m = 1; m <= numMiss; m++)
+    {
+        missionaries[m] = new Missionary(m);
+        missionaries[m]->Begin();
+    }
+
     // wait for all child threads to finish
     boatT->Join();
     for (m = 1; m <= numCans; m++)
     {
         cannibals[m]->Join();
+    }
+    for (m = 1; m <= numMiss; m++)
+    {
+        missionaries[m]->Join();
     }
 
 

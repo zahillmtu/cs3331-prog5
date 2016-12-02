@@ -22,14 +22,18 @@ class BoatMonitor : public Monitor
     private:
         Condition *Riding;
         Condition *CannibalHere;
+        Condition *MissionaryHere;
         Condition *BoatLoading;
         Condition *BoatWaiting;
         int boatLoads;
         int waiting;
         int onBoat;
         int boatState;
+        int canWaiting;
+        int missWaiting;
         char buf[100];
         void ThreadFunc();
         void printWrap(char*);
         int canBoard(int type);
+        void releaseThree();
 };
