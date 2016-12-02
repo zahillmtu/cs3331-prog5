@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <string.h>
 #include "thread.h"
 #include "boat-monitor.h"
 
@@ -67,12 +68,23 @@ void BoatThread::ThreadFunc()
 
     for (k = 1; k <= loads; k++)
     {
-        printf("Boat load #%d\n", k);
+
         Delay();
-        Boat->BoatReady();
+        Boat->BoatReady(k);
         Delay();
         Boat->BoatDone();
+        sprintf(buf, "***** Boat load (%d): Completed\n", k);
+        printWrap(buf);
     }
-    printf("Boat finished running\n");
+    sprintf(buf, "MONITOR: %d crosses have been made.\n", loads);
+    printWrap(buf);
+    sprintf(buf, "MONITOR: This river cross is closed indefinitely"
+                 " for renovation.\n");
+    printWrap(buf);
     exit(0);
+}
+
+void BoatThread::printWrap(char buf[100])
+{
+    write(1, buf, strlen(buf));
 }

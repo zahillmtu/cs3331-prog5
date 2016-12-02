@@ -14,7 +14,7 @@ class BoatMonitor : public Monitor
     public:
         BoatMonitor(int k);
 
-        void BoatReady();
+        void BoatReady(int j);
         void BoatDone();
         void CannibalArrives(int cNum);
         void MissionaryArrives(int mNum);
@@ -31,9 +31,11 @@ class BoatMonitor : public Monitor
         int boatState;
         int canWaiting;
         int missWaiting;
+        char types[3];
+        int numbers[3];
         char buf[100];
         void ThreadFunc();
         void printWrap(char*);
         int canBoard(int type);
-        void releaseThree();
+        void releaseThree(int l);
 };
