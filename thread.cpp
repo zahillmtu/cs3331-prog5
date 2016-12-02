@@ -4,8 +4,8 @@
 // PROGRAM ASSIGNMENT #5
 // FILE NAME : thread.cpp
 // PROGRAM PURPOSE :
-//     Contains implementations of the missionary and cannibal
-//     thread classes.
+//     Contains implementations of the boat, missionary,
+//     and cannibal thread classes.
 // -----------------------------------------------------------
 
 #include <stdio.h>
@@ -17,21 +17,54 @@
 
 static BoatMonitor * Boat = new BoatMonitor(3);
 
+// -----------------------------------------------------------
+// FUNCTION Cannibal::Cannibal :
+//    Constructor for the cannibal thread
+// PARAMETER USAGE :
+//    mNum - ID of the cannibal
+// FUNCTION CALLED :
+//    NA
+// -----------------------------------------------------------
 Cannibal::Cannibal(int cNum)
 {
     canNum = cNum;
 }
 
+// -----------------------------------------------------------
+// FUNCTION Missionary::Missionary :
+//    Constructor for the Missionary thread
+// PARAMETER USAGE :
+//    mNum - ID of the missionary
+// FUNCTION CALLED :
+//    NA
+// -----------------------------------------------------------
 Missionary::Missionary(int mNum)
 {
     missNum = mNum;
 }
 
+// -----------------------------------------------------------
+// FUNCTION BoatThread::BoatThread :
+//    Constructor for the BoatThread thread
+// PARAMETER USAGE :
+//    b - the number of loads to be completed
+// FUNCTION CALLED :
+//    NA
+// -----------------------------------------------------------
 BoatThread::BoatThread(int b)
 {
     loads = b;
 }
 
+// -----------------------------------------------------------
+// FUNCTION Cannibal::ThreadFunc :
+//    Contains functionality for the cannibal thread
+// PARAMETER USAGE :
+//    NA
+// FUNCTION CALLED :
+//    Delay
+//    CannibalArrives
+// -----------------------------------------------------------
 void Cannibal::ThreadFunc()
 {
     Thread::ThreadFunc();
@@ -47,6 +80,15 @@ void Cannibal::ThreadFunc()
     }
 }
 
+// -----------------------------------------------------------
+// FUNCTION Missionary::ThreadFunc :
+//    Contains functionality for the missionary thread
+// PARAMETER USAGE :
+//    NA
+// FUNCTION CALLED :
+//    Delay
+//    MissionaryArrives
+// -----------------------------------------------------------
 void Missionary::ThreadFunc()
 {
     Thread::ThreadFunc();
@@ -62,6 +104,16 @@ void Missionary::ThreadFunc()
     }
 }
 
+// -----------------------------------------------------------
+// FUNCTION BoatThread::ThreadFunc :
+//    Contains functionality for the boat thread
+// PARAMETER USAGE :
+//    NA
+// FUNCTION CALLED :
+//    Delay
+//    BoatReady
+//    BoatDone
+// -----------------------------------------------------------
 void BoatThread::ThreadFunc()
 {
     Thread::ThreadFunc();
@@ -84,6 +136,15 @@ void BoatThread::ThreadFunc()
     exit(0);
 }
 
+// -----------------------------------------------------------
+// FUNCTION BoatThread::printWrap :
+//    A wrapper method for printing using write()
+// PARAMETER USAGE :
+//    buf - A character array of size 100 containing
+//          the print statement
+// FUNCTION CALLED :
+//    write()
+// -----------------------------------------------------------
 void BoatThread::printWrap(char buf[100])
 {
     write(1, buf, strlen(buf));

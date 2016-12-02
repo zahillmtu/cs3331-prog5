@@ -35,11 +35,21 @@ void printWrap(char buf[100]) {
 
 // -----------------------------------------------------------
 // FUNCTION main :
+//    Sets up and starts the river crossing problem. The
+//    problem being that a boat crosses a river with 3
+//    passengers, 3 cannibals, 3 missionaries, or 1 cannibal
+//    and 2 missionaries. 2 cannibals and 1 missionary is
+//    NOT allowed.
 // PARAMETER USAGE :
 //    argv[1] - The number of cannibals
 //    argv[2] - The number of missionaries
 //    argv[3] - The number of boat loads
 // FUNCTION CALLED :
+//    BoatThread
+//    Missionary
+//    Cannibal
+//    Begin
+//    Join
 // -----------------------------------------------------------
 int main(int argc, char* argv[])
 {

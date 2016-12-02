@@ -22,6 +22,14 @@
 #define READY      1
 #define NOTREADY   0
 
+// -----------------------------------------------------------
+// FUNCTION BoatMonitor::BoatMonitor :
+//    Constructor for the BoatMonitor monitor
+// PARAMETER USAGE :
+//    k - number of loads to be completed
+// FUNCTION CALLED :
+//    NA
+// -----------------------------------------------------------
 BoatMonitor::BoatMonitor(int k)
       : Monitor("Boat", HOARE)
 {
@@ -40,6 +48,17 @@ BoatMonitor::BoatMonitor(int k)
     srand( time(NULL));
 }
 
+// -----------------------------------------------------------
+// FUNCTION BoatMonitor::BoatReady :
+//    Monitor procedure used to control the flow of the
+//    Boat Thread. Tells threads they may board the boat
+//    and allows 3 riders to board.
+// PARAMETER USAGE :
+//    k - current load ID
+// FUNCTION CALLED :
+//    releaseThree
+//    Monitor functions
+// -----------------------------------------------------------
 void BoatMonitor::BoatReady(int k)
 {
     MonitorBegin();
@@ -70,6 +89,15 @@ void BoatMonitor::BoatReady(int k)
     MonitorEnd();
 }
 
+// -----------------------------------------------------------
+// FUNCTION BoatMonitor::BoatDone :
+//    Monitor procedure used to control the flow of the
+//    Boat thread. Signals the riders that they can get off.
+// PARAMETER USAGE :
+//    NA
+// FUNCTION CALLED :
+//    Monitor functions
+// -----------------------------------------------------------
 void BoatMonitor::BoatDone()
 {
     MonitorBegin();
@@ -83,6 +111,17 @@ void BoatMonitor::BoatDone()
     MonitorEnd();
 }
 
+// -----------------------------------------------------------
+// FUNCTION BoatMonitor::CannibalArrives :
+//    Monitor procedure used to control the flow of the
+//    cannibal threads. Blocks or allows cannibals
+//    to board the boat
+// PARAMETER USAGE :
+//    cNum - the ID number for the cannibal
+// FUNCTION CALLED :
+//    Monitor functions
+//    canBoard
+// -----------------------------------------------------------
 void BoatMonitor::CannibalArrives(int cNum)
 {
     MonitorBegin();
@@ -129,6 +168,17 @@ void BoatMonitor::CannibalArrives(int cNum)
     MonitorEnd();
 }
 
+// -----------------------------------------------------------
+// FUNCTION BoatMonitor::MissionaryArrives :
+//    Monitor procedure used to control the flow of the
+//    missionary threads. Blocks or allows missionaries
+//    to board the boat
+// PARAMETER USAGE :
+//    mNum - the ID number for the missionary
+// FUNCTION CALLED :
+//    Monitor functions
+//    canBoard
+// -----------------------------------------------------------
 void BoatMonitor::MissionaryArrives(int mNum)
 {
     MonitorBegin();
@@ -175,6 +225,14 @@ void BoatMonitor::MissionaryArrives(int mNum)
     MonitorEnd();
 }
 
+// -----------------------------------------------------------
+// FUNCTION BoatMonitor::canBoard :
+//    Returns true if a thread can board the boat
+// PARAMETER USAGE :
+//    type - tell if it's a cannibal or missionary
+// FUNCTION CALLED :
+//    NA
+// -----------------------------------------------------------
 int BoatMonitor::canBoard(int type)
 {
     if (onBoat < 3 && boatState == READY)
@@ -188,6 +246,14 @@ int BoatMonitor::canBoard(int type)
     }
 }
 
+// -----------------------------------------------------------
+// FUNCTION BoatMonitor::releaseThree :
+//    Function to allow 3 new people onto the boat
+// PARAMETER USAGE :
+//    l - num of boat load in progress
+// FUNCTION CALLED :
+//    Signal
+// -----------------------------------------------------------
 void BoatMonitor::releaseThree(int l)
 {
     // create random sequence for checking
@@ -248,6 +314,15 @@ void BoatMonitor::releaseThree(int l)
     return;
 }
 
+// -----------------------------------------------------------
+// FUNCTION BoatMonitor::printWrap :
+//    A wrapper method for printing using write()
+// PARAMETER USAGE :
+//    buf - A character array of size 100 containing
+//          the print statement
+// FUNCTION CALLED :
+//    write()
+// -----------------------------------------------------------
 void BoatMonitor::printWrap(char buf[100])
 {
     write(1, buf, strlen(buf));
