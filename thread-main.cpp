@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
     printf("Starting crossing\n");
 
     // start boat thread
-    BoatThread *boatT = new BoatThread();
+    BoatThread *boatT = new BoatThread(numLoads);
     boatT->Begin();
 
     // Start all cannibal threads

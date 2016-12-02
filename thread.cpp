@@ -24,9 +24,9 @@ Missionary::Missionary(int mNum)
     missNum = mNum;
 }
 
-BoatThread::BoatThread()
+BoatThread::BoatThread(int b)
 {
-
+    loads = b;
 }
 
 void Cannibal::ThreadFunc()
@@ -55,11 +55,14 @@ void BoatThread::ThreadFunc()
 {
     Thread::ThreadFunc();
 
-    while(1)
+    for (k = 1; k <= loads; k++)
     {
+        printf("Boat load #%d\n", k);
         Delay();
         Boat->BoatReady();
         Delay();
         Boat->BoatDone();
     }
+    printf("Boat finished running\n");
+    exit(0);
 }

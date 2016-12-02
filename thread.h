@@ -39,9 +39,11 @@ class Missionary : public Thread
 class BoatThread : public Thread
 {
     public:
-        BoatThread();
+        BoatThread(int b);
 
     private:
+        int k;
+        int loads;
         char buf[100];
         void ThreadFunc();
         void printWrap(char*);
